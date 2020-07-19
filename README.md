@@ -1,6 +1,6 @@
 ## Script Directory
 
-A list of various scripts and their applications.
+A list of various scripts and their applications. These scripts require other dependencies to function but are posted here just as examples.
 
 ### Data Generation
 
