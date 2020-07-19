@@ -5,16 +5,16 @@ import re
 import time
 import json
 
-
+# Get Rankings for each program
 def getRankings():	
 	overall_url = 'https://www.macleans.ca/education/canadas-top-school-by-reputation-2020/'
 	program_url = 'https://www.macleans.ca/?p={}'
 
-	### Page id for 
+	### Page id corresponding to each program
 	dict_programs = {1184826:'Biology', 1184828:'Business', 1184829:'Computer Science', 1184830:'Education', 1184831:'Engineering', 1184832:'Environmental-Science', 1184833:'Mathematics', 1184834:'Medicine', 1184835:'Nursing', 1184836:'Psychology'}
 
 	try:
-	    page = urllib.request.urlopen(overall_url) #Make Connection
+	    page = urllib.request.urlopen(overall_url) # Make Connection
 	except:
 	    print("An error occured.")
 
@@ -25,7 +25,9 @@ def getRankings():
 	table_body = table.find('tbody')
 
 	data = []
-
+	
+	# Get Overall Rankings
+	# After finding the table with the related data, retrieve table contents row by row
 	rows = table_body.find_all('tr')
 	for row in rows:
 	    cols = row.find_all('td')
@@ -38,7 +40,8 @@ def getRankings():
 
 	print('Overall Ranking')
 	return (top_universities)	
-
+	
+	# Get Ranking by program,
 	print('\nBy Program')
 	for key, program in dict_programs.items():
 		print(program)
@@ -52,6 +55,8 @@ def getRankings():
 		table_body = table.find('tbody')
 		data = []
 		rows = table_body.find_all('tr')
+		
+		# After table is scraped for the releavnt program, skim through table row by row
 		for row in rows:
 		    cols = row.find_all('td')
 		    cols = [ele.text.strip() for ele in cols]
@@ -87,10 +92,11 @@ def getTuition():
 		tuition_summary.append(row)
 	return tuition_summary
 
+# Connect to a database to load results
 def connectDB():
 	endpoint = 'database-unifind.ccyugazvu1zd.ca-central-1.rds.amazonaws.com'
 	user = 'admin'
-	pw = 'root1972'
+	pw = '{}'
 
 	conn = 0
 	try:
@@ -191,6 +197,7 @@ ranking_data = getRankings()
 normalized = normalizeUniNames(ranking_data)
 merged = mergeTuitionRankingData(tuition_data, normalized)
 
+# Write results to JSON file
 with open('data.json', 'w') as f:
 	aggregate = {}
 	aggregate['universities'] = []
