@@ -1,7 +1,3 @@
-## Script Directory
-
-A list of various scripts and their applications. These scripts require other dependencies to function but are posted here just as examples.
-
 ### Data Generation
 
 * data_generation.py - Used for my honours thesis to generate consistent cypher and sql inserts. Uses Faker library and lists of common nouns, verbs and interests.
@@ -17,3 +13,7 @@ A list of various scripts and their applications. These scripts require other de
 ### Web Scraping
 
 * get-req.py - Used to scrape college rankings and relevant information from the web.
+
+### Wordcloud generation
+
+* job_wordcloud.py - Generate wordclouds from job descriptions scraped from the web.
